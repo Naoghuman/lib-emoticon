@@ -1,12 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.naoghuman.lib.emoticon.demo.application.ApplicationPresenter">
-
-</AnchorPane>
+<VBox id="VBox" prefHeight="400.0" prefWidth="600.0" spacing="7.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.emoticon.demo.application.ApplicationPresenter">
+    <children>
+        <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab closable="false" text="Emoji">
+                    <content>
+                        <TabPane fx:id="tpEmojiTabs" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab closable="false" text="Nature">
+                                    <content>
+                                        <FlowPane fx:id="fpNatureItems" hgap="7.0" vgap="7.0">
+                                            <padding>
+                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </content>
+                                </Tab>
+                                <Tab closable="false" text="Objects">
+                                    <content>
+                                        <FlowPane fx:id="fpObjectsItems" hgap="7.0" vgap="7.0">
+                                            <padding>
+                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </content>
+                                </Tab>
+                                <Tab closable="false" text="People">
+                                    <content>
+                                        <FlowPane fx:id="fpPeopleItems" hgap="7.0" vgap="7.0">
+                                            <padding>
+                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </content>
+                                </Tab>
+                                <Tab closable="false" text="Places">
+                                    <content>
+                                        <FlowPane fx:id="fpPlacesItems" hgap="7.0" vgap="7.0">
+                                            <padding>
+                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </content>
+                                </Tab>
+                                <Tab closable="false" text="Symbols">
+                                    <content>
+                                        <FlowPane fx:id="fpSymbolsItems" hgap="7.0" vgap="7.0">
+                                            <padding>
+                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <ToolBar>
+            <items>
+                <Label fx:id="lStatusInfo" text="&lt;status-info&gt;" />
+            </items>
+        </ToolBar>
+    </children>
+</VBox>

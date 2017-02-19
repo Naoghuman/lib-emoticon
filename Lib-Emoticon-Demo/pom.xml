@@ -5,10 +5,38 @@
     <groupId>com.github.naoghuman</groupId>
     <artifactId>lib-emoticon-demo</artifactId>
     <version>0.1.0-SNAPSHOT</version> <!-- -SNAPSHOT -->
-    <packaging>jar</packaging>
+    
     <name>Lib-Emoticon-Demo</name>
+    <packaging>jar</packaging>
+    <inceptionYear>2016</inceptionYear>
+    <url>https://github.com/Naoghuman/lib-emoticon.git</url>
     
     <description>TODO</description>
+    
+    <developers>
+        <developer>
+            <email>peter.rogge@yahoo.de</email>
+            <id>Naoghuman</id>
+            <name>Peter Rogge</name>
+            <timezone>+1</timezone>
+            <url>https://github.com/Naoghuman/lib-emoticon.git</url>
+        </developer>
+    </developers>
+    
+    <licenses>
+        <license>
+            <name>The GNU General Public License, Version 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+            <comments>The GNU General Public License is a free, copyleft license for software and other kinds of works.</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:ssh://github.com:Naoghuman/lib-emoticon.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Naoghuman/lib-emoticon.git</developerConnection>
+        <url>https://github.com/Naoghuman/lib-emoticon.git</url>
+    </scm>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,6 +82,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
+                    <include>**/*.png</include>
                 </includes>
             </resource>
             <resource>
@@ -64,6 +93,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
+                    <include>**/*.png</include>
                 </includes>
             </resource>
         </resources>
@@ -100,6 +130,22 @@
             <artifactId>lib-properties</artifactId>
             <version>0.4.0</version>
             <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Lib-Emoticon-Core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Lib-Emoticon-Emoji</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Lib-Emoticon-Emoji-Images</artifactId>
+            <version>${project.version}</version>
         </dependency>
         
         <dependency>
