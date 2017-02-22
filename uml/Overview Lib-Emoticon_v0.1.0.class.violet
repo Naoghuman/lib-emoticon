@@ -16,13 +16,14 @@
          <void property="text">
           <string>~ EmoticonSet(): EmoticonSet
  
-- initialize()
 + addEmoticon(Emoticon)
 + addEmoticonLoader(EmoticonLoader)
-~ configureEmoticonLoaders()
+~ configureEmoticonLoaders(): «abstract»
 ~ configureEmoticons(): «abstract»
-+ getEmoticonLoader(Emoticon emoticon): Optional&lt;EmoticonLoader&gt;
-+ getEmoticons(): ObservableList&lt;Emoticon&gt;</string>
+~ getEmoticon(String): Optional&lt;Emoticon&gt;
++ getEmoticonLoader(Emoticon): Optional&lt;EmoticonLoader&gt;
++ getEmoticons(): ObservableList&lt;Emoticon&gt;
+- initialize()</string>
          </void>
         </void>
         <void property="name">
@@ -38,11 +39,17 @@ EmoticonSet</string>
         <void property="methods">
          <void property="text">
           <string>- EmoticonProvider(): EmoticonProvider
-+ getDefault(): EmoticonProvider  «static»
++ getDefault(): EmoticonProvider «static»
  
 + getDefaultEmoticon(String): Emoticon
 + getDefaultEmoticon(String, String): Emoticon
-+ getDefaultEmoticonValidator(): EmoticonValidator</string>
++ getDefaultEmoticon(String, String, Optional&lt;String&gt;, 
+ Optional&lt;ImageSuffix&gt;, Optional&lt;ImageSize&gt;
+): Emoticon
++ getDefaultEmoticonValidator(): EmoticonValidator
+- getSuffix(ImageSuffix, Optional&lt;ImageSuffix&gt;): String
++ loadEmoticon(EmoticonLoader, Emoticon): Optional&lt;Image&gt;
++ loadEmoticon(EmoticonLoader, Emoticon, ImageSize): Optional&lt;Image&gt;</string>
          </void>
         </void>
         <void property="name">
@@ -60,10 +67,12 @@ EmoticonSet</string>
  
 ~ addPrefix(String prefix)
 ~ configure(): «abstract»
-+ getDefaultImageSuffix(): Suffix
++ getDefaultSize(): ImageSize
++ getDefaultSuffix(): ImageSuffix
 + getPrefixes(): ObservableList&lt;String&gt;
-~ isSupported(String): Boolean
-~ setDefaultImageSuffix(Suffix)</string>
+~ isSupported(Optional&lt;String&gt;): Boolean
++ setDefaultSize(ImageSize)
++ setDefaultSuffix(ImageSuffix)</string>
          </void>
         </void>
         <void property="name">
@@ -78,8 +87,10 @@ EmoticonLoader</string>
        <object class="com.horstmann.violet.InterfaceNode" id="InterfaceNode0">
         <void property="methods">
          <void property="text">
-          <string>+ getImageName(): String
-+ getPrefix(): String
+          <string>+ getName(): String
++ getSize(): Optional&lt;ImageSize&gt;
++ getPrefix(): Optional&lt;String&gt;
++ getSuffix(): Optional&lt;ImageSuffix&gt;
 + getTitle(): String</string>
          </void>
         </void>
@@ -95,14 +106,51 @@ Emoticon</string>
        <object class="com.horstmann.violet.InterfaceNode" id="InterfaceNode1">
         <void property="methods">
          <void property="text">
-          <string>+ validateIsNotNull(String value) throws NullPointerException «default»
-+ validate(String value) throws NullPointerException, IllegalArgumentException</string>
+          <string>+ validate(String) throws NullPointerException, IllegalArgumentException
++ validateIsNotNull(String) throws NullPointerException «default»</string>
          </void>
         </void>
         <void property="name">
          <void property="text">
           <string>«interface»
 EmoticonValidator</string>
+         </void>
+        </void>
+       </object>
+      </void>
+      <void method="addChild">
+       <object class="com.horstmann.violet.InterfaceNode" id="InterfaceNode2">
+        <void property="methods">
+         <void property="text">
+          <string>+ getHeight(): double
++ getWidth(): double
++ setOwnSize(double, double)
++ toString(): String
++ valueOf(String): ImageSize
++ values(): ImageSize[]</string>
+         </void>
+        </void>
+        <void property="name">
+         <void property="text">
+          <string>«enum»
+ImageSize</string>
+         </void>
+        </void>
+       </object>
+      </void>
+      <void method="addChild">
+       <object class="com.horstmann.violet.InterfaceNode" id="InterfaceNode3">
+        <void property="methods">
+         <void property="text">
+          <string>+ getSuffix(): String
++ valueOf(String): ImageSuffix
++ values(): ImageSuffix[]</string>
+         </void>
+        </void>
+        <void property="name">
+         <void property="text">
+          <string>«enum»
+ImageSuffix</string>
          </void>
         </void>
        </object>
@@ -121,7 +169,7 @@ EmoticonValidator</string>
           <string>- DefaultEmoticonValidator(): DefaultEmoticonValidator
 + getDefault(): DefaultEmoticonValidator «static»
  
-+ validate(String value) throws NullPointerException, IllegalArgumentException</string>
++ validate(String) throws NullPointerException, IllegalArgumentException</string>
          </void>
         </void>
         <void property="name">
@@ -135,9 +183,14 @@ EmoticonValidator</string>
        <object class="com.horstmann.violet.ClassNode" id="ClassNode4">
         <void property="methods">
          <void property="text">
-          <string>+ DefaultEmoticon(String, String): DefaultEmoticon
+          <string>+ DefaultEmoticon(String, String, Optional&lt;String&gt;, 
+ Optional&lt;ImageSuffix&gt;, Optional&lt;ImageSize&gt;
+): DefaultEmoticon
  
- + getImageName(): String
++ getName(): String
++ getPrefix(): Opitonal&lt;String&gt;
++ getSize(): Optional&lt;ImageSize&gt;
++ getSuffix(): Optional&lt;ImageSuffix&gt;
 + getTitle(): String
 + toString(): String </string>
          </void>
@@ -238,7 +291,7 @@ EmoticonValidator</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double3"/>
-      <double>785.0</double>
+      <double>833.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
@@ -249,7 +302,7 @@ EmoticonValidator</string>
      </void>
     </void>
     <void method="setLocation">
-     <double>785.0</double>
+     <double>833.0</double>
      <double>79.0</double>
     </void>
    </object>
@@ -261,19 +314,19 @@ EmoticonValidator</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double4"/>
-      <double>298.0</double>
+      <double>248.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double4"/>
-      <double>362.0</double>
+      <double>299.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>298.0</double>
-     <double>362.0</double>
+     <double>248.0</double>
+     <double>299.0</double>
     </void>
    </object>
   </void>
@@ -284,7 +337,7 @@ EmoticonValidator</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double5"/>
-      <double>972.0</double>
+      <double>951.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
@@ -295,7 +348,7 @@ EmoticonValidator</string>
      </void>
     </void>
     <void method="setLocation">
-     <double>972.0</double>
+     <double>951.0</double>
      <double>326.0</double>
     </void>
    </object>
@@ -307,19 +360,19 @@ EmoticonValidator</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double6"/>
-      <double>584.0</double>
+      <double>564.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double6"/>
-      <double>83.0</double>
+      <double>82.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>584.0</double>
-     <double>83.0</double>
+     <double>564.0</double>
+     <double>82.0</double>
     </void>
    </object>
   </void>
@@ -847,6 +900,52 @@ src/main/resources/...</string>
     <void method="setLocation">
      <double>1087.0</double>
      <double>679.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="InterfaceNode2"/>
+   <object class="java.awt.geom.Point2D$Double" id="Point2D$Double25">
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>x</string>
+     <void method="set">
+      <object idref="Point2D$Double25"/>
+      <double>49.0</double>
+     </void>
+    </void>
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>y</string>
+     <void method="set">
+      <object idref="Point2D$Double25"/>
+      <double>304.0</double>
+     </void>
+    </void>
+    <void method="setLocation">
+     <double>49.0</double>
+     <double>304.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="InterfaceNode3"/>
+   <object class="java.awt.geom.Point2D$Double" id="Point2D$Double26">
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>x</string>
+     <void method="set">
+      <object idref="Point2D$Double26"/>
+      <double>730.0</double>
+     </void>
+    </void>
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>y</string>
+     <void method="set">
+      <object idref="Point2D$Double26"/>
+      <double>331.0</double>
+     </void>
+    </void>
+    <void method="setLocation">
+     <double>730.0</double>
+     <double>331.0</double>
     </void>
    </object>
   </void>
