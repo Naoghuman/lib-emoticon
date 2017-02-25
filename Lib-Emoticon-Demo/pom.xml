@@ -11,7 +11,7 @@
     <inceptionYear>2016</inceptionYear>
     <url>https://github.com/Naoghuman/lib-emoticon.git</url>
     
-    <description>TODO</description>
+    <description>`Lib-Emoticon-Demo` is a 'demonstration' application to show the features from the project `Lib-Emoticon` with it's included sublibraries.</description>
     
     <developers>
         <developer>
@@ -133,22 +133,6 @@
         </dependency>
         
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Lib-Emoticon-Core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Lib-Emoticon-Emoji</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Lib-Emoticon-Emoji-Images</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
@@ -165,6 +149,21 @@
             <artifactId>afterburner.fx</artifactId>
             <version>1.7.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>lib-emoticon-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>lib-emoticon-emoji</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>lib-emoticon-emoji-images</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     

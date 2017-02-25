@@ -16,11 +16,13 @@
  */
 package com.github.naoghuman.lib.emoticon.core;
 
+import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator;
+
 /**
  *
  * @author Naoghuman
  */
-public enum ImageSize {
+public enum EmoticonSize {
 
     /**
      *
@@ -65,7 +67,7 @@ public enum ImageSize {
     private double height;
     private double width;
 
-    private ImageSize(final double height, final double width) {
+    private EmoticonSize(final double height, final double width) {
         this.height = height;
         this.width = width;
     }
@@ -74,6 +76,9 @@ public enum ImageSize {
         if (!this.equals(SIZE_OWN)) {
             throw new UnsupportedOperationException("Set [own] size is only allowed in parameter [SIZE_OWN]"); // NOI18N
         }
+        
+        DefaultEmoticonValidator.getDefault().validate(height);
+        DefaultEmoticonValidator.getDefault().validate(width);
 
         this.height = height;
         this.width = width;

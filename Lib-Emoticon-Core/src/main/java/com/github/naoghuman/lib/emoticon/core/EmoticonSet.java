@@ -18,6 +18,7 @@ package com.github.naoghuman.lib.emoticon.core;
 
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -141,6 +142,21 @@ public abstract class EmoticonSet {
      */
     public ObservableList<Emoticon> getEmoticons() {
         return emoticons;
+    }
+    
+    public ObservableList<Emoticon> getEmoticons(Optional<String> category) {
+        if (!category.isPresent()) {
+            return this.getEmoticons();
+        }
+        
+        final ObservableList<Emoticon> categoryEmoticons = FXCollections.observableArrayList();
+        categoryEmoticons.addAll(emoticons.stream()
+                .filter(emoticon -> (
+                        emoticon.getCategory().isPresent() && emoticon.getCategory().get().equals(category.get())
+                ))
+                .collect(Collectors.toList()));
+        
+        return categoryEmoticons;
     }
 
 }

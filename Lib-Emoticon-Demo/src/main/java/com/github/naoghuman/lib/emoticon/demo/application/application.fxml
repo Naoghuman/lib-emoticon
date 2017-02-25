@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToolBar?>
@@ -17,49 +18,69 @@
                         <TabPane fx:id="tpEmojiTabs" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
                                 <Tab closable="false" text="Nature">
-                                    <content>
-                                        <FlowPane fx:id="fpNatureItems" hgap="7.0" vgap="7.0">
-                                            <padding>
-                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                            </padding>
-                                        </FlowPane>
-                                    </content>
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                              <FlowPane fx:id="fpNatureItems" hgap="7.0" vgap="7.0">
+                                                  <padding>
+                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                  </padding>
+                                              </FlowPane>
+                                 </content>
+                              </ScrollPane>
+                           </content>
                                 </Tab>
                                 <Tab closable="false" text="Objects">
-                                    <content>
-                                        <FlowPane fx:id="fpObjectsItems" hgap="7.0" vgap="7.0">
-                                            <padding>
-                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                            </padding>
-                                        </FlowPane>
-                                    </content>
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                              <FlowPane fx:id="fpObjectsItems" hgap="7.0" vgap="7.0">
+                                                  <padding>
+                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                  </padding>
+                                              </FlowPane>
+                                 </content>
+                              </ScrollPane>
+                           </content>
                                 </Tab>
                                 <Tab closable="false" text="People">
-                                    <content>
-                                        <FlowPane fx:id="fpPeopleItems" hgap="7.0" vgap="7.0">
-                                            <padding>
-                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                            </padding>
-                                        </FlowPane>
-                                    </content>
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                              <FlowPane fx:id="fpPeopleItems" hgap="7.0" vgap="7.0">
+                                                  <padding>
+                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                  </padding>
+                                              </FlowPane>
+                                 </content>
+                              </ScrollPane>
+                           </content>
                                 </Tab>
                                 <Tab closable="false" text="Places">
-                                    <content>
-                                        <FlowPane fx:id="fpPlacesItems" hgap="7.0" vgap="7.0">
-                                            <padding>
-                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                            </padding>
-                                        </FlowPane>
-                                    </content>
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                              <FlowPane fx:id="fpPlacesItems" hgap="7.0" vgap="7.0">
+                                                  <padding>
+                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                  </padding>
+                                              </FlowPane>
+                                 </content>
+                              </ScrollPane>
+                           </content>
                                 </Tab>
                                 <Tab closable="false" text="Symbols">
-                                    <content>
-                                        <FlowPane fx:id="fpSymbolsItems" hgap="7.0" vgap="7.0">
-                                            <padding>
-                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                            </padding>
-                                        </FlowPane>
-                                    </content>
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                              <FlowPane fx:id="fpSymbolsItems" hgap="7.0" vgap="7.0">
+                                                  <padding>
+                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                  </padding>
+                                              </FlowPane>
+                                 </content>
+                              </ScrollPane>
+                           </content>
                                 </Tab>
                             </tabs>
                         </TabPane>

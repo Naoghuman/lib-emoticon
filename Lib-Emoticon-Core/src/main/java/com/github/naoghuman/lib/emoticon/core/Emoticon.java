@@ -32,15 +32,17 @@ import java.util.Optional;
  * @see javafx.scene.image.Image
  */
 public interface Emoticon {
+    
+    public Optional<String> getCategory();
 
     /**
      * The image name from this <code>Emoticon</code>.
      * <p />
      * This parameter can't be NULL or EMPTY.
-     *
+     *TODO
      * @return the image name from this <code>Emoticon</code>.
      */
-    public String getName();
+    public Optional<String> getName();
 
     /**
      * The prefix from this <code>Emoticon</code>.
@@ -51,7 +53,7 @@ public interface Emoticon {
      */
     public Optional<String> getPrefix();
     
-    public Optional<ImageSize> getSize();
+    public Optional<EmoticonSize> getSize();
 
     /**
      * The prefix from this <code>Emoticon</code>.
@@ -60,7 +62,7 @@ public interface Emoticon {
      * TODO
      * @return the prefix from this <code>Emoticon</code>.
      */
-    public Optional<ImageSuffix> getSuffix();
+    public Optional<EmoticonSuffix> getSuffix();
 
     /**
      * The title from this <code>Emoticon</code>.

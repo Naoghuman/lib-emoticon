@@ -16,9 +16,14 @@
  */
 package com.github.naoghuman.lib.emoticon.internal;
 
+import com.github.naoghuman.lib.emoticon.core.Emoticon;
+import com.github.naoghuman.lib.emoticon.core.EmoticonSize;
+import com.github.naoghuman.lib.emoticon.core.EmoticonSuffix;
 import java.util.Optional;
 
 import com.github.naoghuman.lib.emoticon.core.EmoticonValidator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is a default implementation from the <code>Interface</code>
@@ -53,11 +58,63 @@ public final class DefaultEmoticonValidator implements EmoticonValidator {
     }
 
     @Override
+    public void validate(double value) throws IllegalArgumentException {
+        if (value <= 0.0d) {
+            throw new IllegalArgumentException("The parameter [value] can't <= 0.0d"); // NOI18N
+        }
+    }
+
+    @Override
+    public void validate(Emoticon emoticon) throws NullPointerException, IllegalArgumentException {
+        EmoticonValidator.super.requireNonNull(emoticon);
+        
+        this.validate(emoticon.getTitle());
+        
+        if (emoticon.getPrefix().isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(emoticon.getPrefix().get());
+        }
+        
+        if (emoticon.getName().isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(emoticon.getName().get());
+        }
+        
+        if (emoticon.getSuffix().isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(emoticon.getSuffix().get().getSuffix());
+        }
+        
+        if (emoticon.getSize().isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(emoticon.getSize().get());
+        }
+    }
+
+    @Override
+    public void validate(final EmoticonSize size) throws NullPointerException, IllegalArgumentException {
+        EmoticonValidator.super.requireNonNull(size);
+        
+        try {
+            this.validate(size.getHeight());
+            this.validate(size.getWidth());
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, 
+                    "Either the [width=" + size.getWidth() + "] or [height=" + size.getHeight() + "] isn't valid!", ex); // NOI18N
+        }
+    }
+
+    @Override
+    public void validate(final EmoticonSuffix suffix) throws NullPointerException, IllegalArgumentException {
+        EmoticonValidator.super.requireNonNull(suffix);
+        
+        if (suffix.equals(EmoticonSuffix.OWN)) {
+            this.validate(suffix.getSuffix());
+        }
+    }
+
+    @Override
     public void validate(String value) throws NullPointerException, IllegalArgumentException {
-        EmoticonValidator.super.validateIsNotNull(value);
+        EmoticonValidator.super.requireNonNull(value);
 
         if (value.trim().isEmpty()) {
-            throw new IllegalArgumentException("The value can't be EMPTY"); // NOI18N
+            throw new IllegalArgumentException("The parameter [value] can't be EMPTY"); // NOI18N
         }
     }
 

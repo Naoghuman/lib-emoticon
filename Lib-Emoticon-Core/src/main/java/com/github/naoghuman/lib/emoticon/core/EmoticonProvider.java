@@ -18,11 +18,7 @@ package com.github.naoghuman.lib.emoticon.core;
 
 import java.util.Optional;
 
-import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticon;
 import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator;
-import java.net.URI;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.image.Image;
 
 /**
@@ -47,6 +43,7 @@ import javafx.scene.image.Image;
  * @see javafx.scene.image.Image
  */
 public final class EmoticonProvider {
+    // TODO if no new methods then rename to EmoticonFacade
 
     private static final Optional<EmoticonProvider> instance = Optional.of(new EmoticonProvider());
 
@@ -63,23 +60,13 @@ public final class EmoticonProvider {
 
     }
     
-    private String convertToImageName(Emoticon emoticon) {
-    	/*
-    	 * TODO
-    	 *  - convert imagename to uppercase
-    	 *  - convert '-' to '_'
-    	 *  - wie kann ich zwischen den sub-topics (Nature=NA_, Objects=OB_...) unterscheiden?
-    	 */
-    	return "";
-    }
+//    public Emoticon getDefaultEmoticon(final String title) {
+//        return this.getDefaultEmoticon(title, title);
+//    }
     
-    public Emoticon getDefaultEmoticon(final String title) {
-        return this.getDefaultEmoticon(title, title);
-    }
-    
-    public Emoticon getDefaultEmoticon(final String title, final String name) {
-        return this.getDefaultEmoticon(title, name, Optional.empty(), Optional.empty(), Optional.empty());
-    }
+//    public Emoticon getDefaultEmoticon(final String title, final String name) {
+//        return this.getDefaultEmoticon(title, name, Optional.empty(), Optional.empty(), Optional.empty());
+//    }
     
     /**
      * This method aloud access to a default implementation from the <code>Interface</code>
@@ -99,13 +86,13 @@ public final class EmoticonProvider {
      * @see com.github.naoghuman.lib.emoticon.core.Emoticon
      * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticon
      */
-    public Emoticon getDefaultEmoticon(
-            final String title, final String name,
-            final Optional<String> prefix, final Optional<ImageSuffix> suffix,
-            final Optional<ImageSize> size
-    ) {
-        return new DefaultEmoticon(title, name, prefix, suffix, size);
-    }
+//    public Emoticon getDefaultEmoticon(
+//            final String title, final String name,
+//            final Optional<String> prefix, final Optional<EmoticonSuffix> suffix,
+//            final Optional<EmoticonSize> size
+//    ) {
+//        return new DefaultEmoticon(title, name, prefix, suffix, size);
+//    }
 
     /**
      * This method aloud access to a default implementation from the <code>Interface</code>
@@ -123,22 +110,6 @@ public final class EmoticonProvider {
         return DefaultEmoticonValidator.getDefault();
     }
     
-    private String getSuffix(ImageSuffix emoticonLoaderSuffix, Optional<ImageSuffix> emoticonSuffix) {
-        /*
-        TODO
-         - Unittest
-        */
-    	String suffixToString;
-        if (emoticonSuffix.isPresent()) {
-            suffixToString = emoticonSuffix.get().getSuffix();
-        }
-        else {
-            suffixToString = emoticonLoaderSuffix.getSuffix();
-        }
-    	
-    	return suffixToString;
-    }
-    
     /**
      * 
      * @param emoticonLoader
@@ -147,7 +118,7 @@ public final class EmoticonProvider {
      * @return 
      */
     public Optional<Image> loadEmoticon(final EmoticonLoader emoticonLoader, final Emoticon emoticon) {
-    	return this.loadEmoticon(emoticonLoader, emoticon, emoticonLoader.getDefaultSize());
+    	return emoticonLoader.loadEmoticon(emoticon);
     }
     
     /**
@@ -158,39 +129,8 @@ public final class EmoticonProvider {
      * 
      * @return 
      */
-    public Optional<Image> loadEmoticon(final EmoticonLoader emoticonLoader, final Emoticon emoticon, final ImageSize size) {
-    	if (!emoticonLoader.isSupported(emoticon.getPrefix())) {
-    		throw new UnsupportedOperationException(
-                    "The EmoticonLoader '" + emoticonLoader.getClass().getName() // NOI18N
-                    + "' doesn't support the Emoticon: " + emoticon.getTitle()); // NOI18N
-    	}
-        
-        /*
-        TODO
-         - imagename wie konvertieren?
-        */
-
-    	final String name = this.convertToImageName(emoticon);
-    	final String suffix = this.getSuffix(emoticonLoader.getDefaultSuffix(), emoticon.getSuffix());
-    	final String title = emoticon.getTitle();
-    	try {
-            this.getDefaultEmoticonValidator().validate(name);
-            this.getDefaultEmoticonValidator().validate(title);
-        } catch (NullPointerException | IllegalArgumentException ex) {
-            Logger.getLogger(EmoticonProvider.class.getName()).log(Level.SEVERE, "Given Emoticon isn't valid: " + emoticon.getTitle(), ex); // NOI18N
-        }
-    	
-    	Optional<Image> image;
-        try {
-            final URI uri = emoticonLoader.getClass().getResource(name).toURI();
-            image = Optional.ofNullable(new Image(uri.toString(), size.getWidth(), size.getHeight(), true, true));
-        } catch (Exception ex) {
-            Logger.getLogger(EmoticonProvider.class.getName()).log(Level.SEVERE, "Can't load Emoticon: " + emoticon.getTitle(), ex); // NOI18N
-            
-            image = Optional.empty();
-        }
-
-        return image;
+    public Optional<Image> loadEmoticon(final EmoticonLoader emoticonLoader, final Emoticon emoticon, final EmoticonSize size) {
+    	return emoticonLoader.loadEmoticon(emoticon, size);
     }
 
 }

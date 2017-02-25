@@ -17,35 +17,60 @@
 package com.github.naoghuman.lib.emoticon.internal;
 
 import com.github.naoghuman.lib.emoticon.core.Emoticon;
-import com.github.naoghuman.lib.emoticon.core.ImageSize;
-import com.github.naoghuman.lib.emoticon.core.ImageSuffix;
+import com.github.naoghuman.lib.emoticon.core.EmoticonSize;
+import com.github.naoghuman.lib.emoticon.core.EmoticonSuffix;
 import java.util.Optional;
 
 public final class DefaultEmoticon implements Emoticon {
 
     private final String title;
-    private final String name;
+    private final Optional<String> category;
+    private final Optional<String> name;
     private final Optional<String> prefix;
-    private final Optional<ImageSize> size;
-    private final Optional<ImageSuffix> suffix;
+    private final Optional<EmoticonSize> size;
+    private final Optional<EmoticonSuffix> suffix;
 
     public DefaultEmoticon(
-            final String title, final String name,
-            final Optional<String> prefix, final Optional<ImageSuffix> suffix,
-            final Optional<ImageSize> size
+            final String title, final Optional<String> prefix,
+            final Optional<String> name, final Optional<EmoticonSuffix> suffix,
+            final Optional<String> category, final Optional<EmoticonSize> size
     ) {
         DefaultEmoticonValidator.getDefault().validate(title);
-        DefaultEmoticonValidator.getDefault().validate(name);
+        if (prefix.isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(prefix.get());
+        }
+        
+        if (name.isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(name.get());
+        }
+        
+        if (suffix.isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(suffix.get());
+        }
+        
+        if (category.isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(category.get());
+        }
+        
+        if (size.isPresent()) {
+            DefaultEmoticonValidator.getDefault().validate(size.get());
+        }
 
         this.title  = title;
         this.name   = name;
         this.prefix = prefix;
         this.suffix = suffix;
+        this.category = category;
         this.size   = size;
     }
 
     @Override
-    public String getName() {
+    public Optional<String> getCategory() {
+        return category;
+    }
+
+    @Override
+    public Optional<String> getName() {
         return name;
     }
 
@@ -55,12 +80,12 @@ public final class DefaultEmoticon implements Emoticon {
     }
 
     @Override
-    public Optional<ImageSize> getSize() {
+    public Optional<EmoticonSize> getSize() {
         return size;
     }
 
     @Override
-    public Optional<ImageSuffix> getSuffix() {
+    public Optional<EmoticonSuffix> getSuffix() {
         return suffix;
     }
 
@@ -73,24 +98,13 @@ public final class DefaultEmoticon implements Emoticon {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("Emoji ["); // NOI18N
+        
         sb.append("title=").append(this.getTitle()); // NOI18N
-        sb.append(", "); // NOI18N
-        sb.append("name=").append(this.getName()); // NOI18N
-        
-        if (this.getPrefix().isPresent()) {
-            sb.append(", "); // NOI18N
-            sb.append("prefix=").append(this.getPrefix().get()); // NOI18N
-        }
-        
-        if (this.getSuffix().isPresent()) {
-            sb.append(", "); // NOI18N
-            sb.append("suffix=").append(this.getSuffix().get().getSuffix()); // NOI18N
-        }
-        
-        if (this.getSize().isPresent()) {
-            sb.append(", "); // NOI18N
-            sb.append("size=").append(this.getSize().get().toString()); // NOI18N
-        }
+        sb.append(", name=").append(this.getName().isPresent() ? this.getName().get() : "[]"); // NOI18N
+        sb.append(", prefix=").append(this.getPrefix().isPresent() ? this.getPrefix().get() : "[]"); // NOI18N
+        sb.append(", suffix=").append(this.getSuffix().isPresent() ? this.getSuffix().get().getSuffix() : "[]"); // NOI18N
+        sb.append(", category=").append(this.getCategory().isPresent() ? this.getCategory().get() : "[]"); // NOI18N
+        sb.append(", size=").append(this.getSize().isPresent() ? this.getSize().get().toString() : "[]"); // NOI18N
         
         sb.append("]"); // NOI18N
 

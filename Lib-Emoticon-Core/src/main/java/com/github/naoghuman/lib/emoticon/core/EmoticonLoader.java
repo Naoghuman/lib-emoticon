@@ -16,9 +16,14 @@
  */
 package com.github.naoghuman.lib.emoticon.core;
 
+import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator;
+import java.net.URI;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 /**
  * This <code>abstract</code> class defines the minimal functionalities which
@@ -35,8 +40,8 @@ public abstract class EmoticonLoader {
 
     private final ObservableList<String> prefixes = FXCollections.observableArrayList();
 
-    private ImageSize defaultSize = ImageSize.SIZE_16x16;
-    private ImageSuffix defaultSuffix = ImageSuffix.PNG;
+    private EmoticonSize defaultSize = EmoticonSize.SIZE_16x16;
+    private EmoticonSuffix defaultSuffix = EmoticonSuffix.PNG;
 
     /**
      * 
@@ -72,7 +77,7 @@ public abstract class EmoticonLoader {
      * 
      * @return 
      */
-    public ImageSize getDefaultSize() {
+    public EmoticonSize getDefaultSize() {
         return defaultSize;
     }
 
@@ -80,12 +85,12 @@ public abstract class EmoticonLoader {
      * 
      * @return 
      */
-    public ImageSuffix getDefaultSuffix() {
+    public EmoticonSuffix getDefaultSuffix() {
         return defaultSuffix;
     }
 
     /**
-     * Returns all associated <code>prefixes</code> which the concrete
+     * Returns all associated <code>prefixes</code> which a concrete
      * implementation from this <code>abstract</code> class supports.
      *
      * @return all associated <code>prefixes</code>.
@@ -96,51 +101,103 @@ public abstract class EmoticonLoader {
     }
 
     /**
-     * Checks the given <code>prefix</code> if it's supported by the concrete
+     * Checks the given <code>prefix</code> if it's supported by a concrete
      * implementation from this <code>EmoticonLoader</code>.
+     * 
+     * TODO error if prefixes is empty
      *
-     * @param emoticonPrefix which should be checked if it's supported by the concrete
+     * @param prefix which should be checked if it's supported by the concrete
      * implementation from this <code>EmoticonLoader</code> or not.
      * @return <code>true</code> if the the concrete implementation from this
      * <code>EmoticonLoader</code> supports the given <code>prefix</code>,
      * otherwise <code>false</code>.
      * @see com.github.naoghuman.lib.emoticon.core.Emoticon
      */
-    public boolean isSupported(Optional<String> emoticonPrefix) {
-        
-        /*
-        - if  loader.isempty and  prefix.ispresent == false
-        - if  loader.isempty and !prefix.ispresent == true
-        - if !loader.isempty and  prefix.ispresent and  equals == true
-        - if !loader.isempty and !prefix.ispresent and !equals == false
-        
-        TODO unittests
-        */
-        final boolean prefixesExists = !this.getPrefixes().isEmpty();
-        final boolean emoticonPrefixIsPresent = emoticonPrefix.isPresent();
-        
-        boolean isSupported = false;
-        if (!prefixesExists && !emoticonPrefixIsPresent) {
-            isSupported = true;
+    public boolean isSupported(Optional<String> prefix) {
+        /* TODO unittests */
+        if (this.getPrefixes().isEmpty()) {
+            throw new IllegalArgumentException("It must at minimum [one] default prefix defined! " // NOI18N
+                    + "See add(String) for more information."); // NOI18N
         }
         
-        if (prefixesExists && emoticonPrefixIsPresent) {
+        boolean isSupported = false;
+        if (prefix.isPresent()) {
             final Optional<String> foundedPrefix = this.getPrefixes().stream()
-                .filter(prefixToCheck -> prefixToCheck.equals(emoticonPrefix.get()))
+                .filter(prefixToCheck -> prefixToCheck.equals(prefix.get()))
                 .findFirst();
             if (foundedPrefix.isPresent()) {
                 isSupported = true;
             }
         }
+        else {
+            // Use the default-prefixes
+            isSupported = true;
+        }
 
         return isSupported;
+    }
+    
+    public Optional<Image> loadEmoticon(final Emoticon emoticon) {
+        return this.loadEmoticon(emoticon, this.getDefaultSize());
+    }
+    
+    private String convertToImageName(Emoticon emoticon) {
+    	/* TODO unittests
+            - emoticon.name.isPresent > emoticon.title
+            - emoticon.suffix.isPresent > loader.defaultsuffix
+            - return name + suffix
+    	 */
+        
+        final StringBuilder sb = new StringBuilder();
+        sb.append(emoticon.getName().isPresent() ? emoticon.getName().get() : emoticon.getTitle());
+        sb.append(emoticon.getSuffix().isPresent() ? emoticon.getSuffix().get().getSuffix() : this.getDefaultSuffix().getSuffix());
+        
+        /*
+        '-' -> 'minus', but not the prefix
+        '+' -> 'plus'
+        */
+        
+    	return sb.toString();
+    }
+    
+    public Optional<Image> loadEmoticon(final Emoticon emoticon, final EmoticonSize size) {
+        if (!this.isSupported(emoticon.getPrefix())) {
+    		throw new UnsupportedOperationException(
+                    "The EmoticonLoader '" + this.getClass().getName() // NOI18N
+                    + "' doesn't support the Emoticon: " + emoticon.getTitle()); // NOI18N
+    	}
+        
+        try {
+            DefaultEmoticonValidator.getDefault().validate(emoticon);
+        } catch (NullPointerException | IllegalArgumentException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Given [Emoticon] isn't valid: " + emoticon.getTitle(), ex); // NOI18N
+        }
+        
+    	final String imageName = this.convertToImageName(emoticon);
+        try {
+            DefaultEmoticonValidator.getDefault().validate(imageName);
+        } catch (NullPointerException | IllegalArgumentException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Given [name] isn't valid: " + emoticon.getTitle(), ex); // NOI18N
+        }
+        
+        Optional<Image> image;
+        try {
+            final URI uri = this.getClass().getResource(imageName).toURI();
+            image = Optional.ofNullable(new Image(uri.toString(), size.getWidth(), size.getHeight(), true, true, true));
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Can't load Emoticon: " + emoticon.getTitle(), ex); // NOI18N
+            
+            image = Optional.empty();
+        }
+
+        return image;
     }
 
     /**
      * 
      * @param defaultSize
      */
-    public void setDefaultSize(ImageSize defaultSize) {
+    public void setDefaultSize(EmoticonSize defaultSize) {
         this.defaultSize = defaultSize;
     }
 
@@ -148,7 +205,7 @@ public abstract class EmoticonLoader {
      * 
      * @param defaultSuffix 
      */
-    public void setDefaultSuffix(ImageSuffix defaultSuffix) {
+    public void setDefaultSuffix(EmoticonSuffix defaultSuffix) {
         this.defaultSuffix = defaultSuffix;
     }
 

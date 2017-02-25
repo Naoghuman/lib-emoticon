@@ -14,46 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.lib.emoticon.core;
+package com.github.naoghuman.lib.emoticon.emoji.images;
+
+import com.github.naoghuman.lib.emoticon.core.EmoticonLoader;
+import com.github.naoghuman.lib.emoticon.core.EmoticonSuffix;
+import com.github.naoghuman.lib.emoticon.emoji.EmojiEmoticonPrefix;
 
 /**
- *
+ * TODO hit responsible path = package
+ * 
  * @author Naoghuman
  */
-public enum ImageSuffix {
+public final class EmojiEmoticonLoader extends EmoticonLoader implements EmojiEmoticonPrefix {
 
-    /**
-     *
-     */
-    GIF(".gif"), // NOI18N
-
-    /**
-     *
-     */
-    JPEG(".jpeg"), // NOI18N
-
-    /**
-     *
-     */
-    JPG(".jpg"), // NOI18N
-
-    /**
-     *
-     */
-    PNG(".png"); // NOI18N// NOI18N
-
-    private String suffix = null;
-
-    ImageSuffix(String suffix) {
-        this.suffix = suffix;
+    public EmojiEmoticonLoader() {
+        super();
+        
+        this.configure();
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getSuffix() {
-        return suffix;
+    @Override
+    protected void configure() {
+    	super.setDefaultSuffix(EmoticonSuffix.PNG);
+        super.addPrefix(PREFIX_EM);
     }
-
+    
 }

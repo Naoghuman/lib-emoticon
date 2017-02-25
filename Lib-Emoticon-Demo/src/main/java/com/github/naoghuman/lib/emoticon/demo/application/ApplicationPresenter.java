@@ -17,7 +17,13 @@
 package com.github.naoghuman.lib.emoticon.demo.application;
 
 import com.github.naoghuman.lib.action.api.IRegisterActions;
+import com.github.naoghuman.lib.emoticon.core.Emoticon;
+import com.github.naoghuman.lib.emoticon.core.EmoticonProvider;
+import com.github.naoghuman.lib.emoticon.core.EmoticonSize;
 import com.github.naoghuman.lib.emoticon.demo.images.ImagesLoader;
+import com.github.naoghuman.lib.emoticon.emoji.EmojiEmoticonCategory;
+import com.github.naoghuman.lib.emoticon.emoji.EmojiEmoticonSet;
+import com.github.naoghuman.lib.emoticon.emoji.images.EmojiEmoticonLoader;
 import com.github.naoghuman.lib.logger.api.LoggerFacade;
 import java.net.URL;
 import java.util.List;
@@ -41,17 +47,9 @@ import javafx.scene.layout.FlowPane;
  *
  * @author Naoghuman
  */
-public class ApplicationPresenter implements Initializable, IRegisterActions {
+public class ApplicationPresenter implements Initializable, EmojiEmoticonCategory, IRegisterActions {
     
     private static final Optional<Image> PLACE_HOLDER_ICON = ImagesLoader.getDefault().loadPlaceHolderIcon();
-    
-    private static final String TAB_NATURE  = "Nature"; // NOI18N
-    private static final String TAB_OBJECTS = "Objects"; // NOI18N
-    private static final String TAB_PEOPLE  = "People"; // NOI18N
-    private static final String TAB_PLACES  = "Places"; // NOI18N
-    private static final String TAB_SYMBOLS = "Symbols"; // NOI18N
-    
-    private static final Tooltip PLACE_HOLDER_TOOLTIP = new Tooltip("place-holder"); // NOI18N
     
     private static final List<Mapper> MAPPERS = FXCollections.observableArrayList();
     
@@ -88,7 +86,7 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void initializeEmojiTabNatureWithPlaceHolders() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Emoji Tab Nature with PlaceHolders"); // NOI18N
         
-        final Optional<Mapper> mapper = this.getMapper(TAB_NATURE);
+        final Optional<Mapper> mapper = this.getMapper(NATURE);
         if (mapper.isPresent()) {
             this.onActionLoadPlaceHolders(mapper.get());
         }
@@ -97,27 +95,26 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
     private void initializeMappers() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Mappers"); // NOI18N
         
-        MAPPERS.add(new Mapper(TAB_NATURE,  fpNatureItems,  150));
-        MAPPERS.add(new Mapper(TAB_OBJECTS, fpObjectsItems, 200));
-        MAPPERS.add(new Mapper(TAB_PEOPLE,  fpPeopleItems,  120));
-        MAPPERS.add(new Mapper(TAB_PLACES,  fpPlacesItems,  180));
-        MAPPERS.add(new Mapper(TAB_SYMBOLS, fpSymbolsItems, 175));
+        MAPPERS.add(new Mapper(NATURE,  fpNatureItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(NATURE))));
+        MAPPERS.add(new Mapper(OBJECTS, fpObjectsItems, new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(OBJECTS))));
+        MAPPERS.add(new Mapper(PEOPLE,  fpPeopleItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(PEOPLE))));
+        MAPPERS.add(new Mapper(PLACES,  fpPlacesItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(PLACES))));
+        MAPPERS.add(new Mapper(SYMBOLS, fpSymbolsItems, new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(SYMBOLS))));
     }
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize ApplicationPresenter after window is showing"); // NOI18N
     }
     
-    private ImageView getImageView(final int index, final Image image) {
+    private ImageView getImageView(final int index, final String title) {
         final ImageView imageView = new ImageView();
         imageView.setFitHeight(64.0d);
         imageView.setFitWidth(64.0d);
-        imageView.setId("" + index); // NOI18N
-        imageView.setImage(image);
+        imageView.setId(index + ";" + title); // NOI18N
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         
-        Tooltip.install(imageView, PLACE_HOLDER_TOOLTIP);
+        Tooltip.install(imageView, new Tooltip(title));
                 
         return imageView;
     }
@@ -135,8 +132,8 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
         LoggerFacade.getDefault().debug(this.getClass(), "Register actions in ApplicationPresenter"); // NOI18N
     }
     
-    private void onActionLoadPlaceHolders(Mapper mapper) {
-        LoggerFacade.getDefault().debug(this.getClass(), "On action load place-holders for " + mapper.getTabName()); // NOI18N
+    private void onActionLoadPlaceHolders(final Mapper mapper) {
+        LoggerFacade.getDefault().debug(this.getClass(), "On action load [images] for [" + mapper.getTabName() + "]"); // NOI18N
         
         if (PLACE_HOLDER_ICON.isPresent()) {
             final ObservableList<Node> childrens = mapper.getFlowPane().getChildren();
@@ -144,53 +141,81 @@ public class ApplicationPresenter implements Initializable, IRegisterActions {
                 return;
             }
             
-            final int maxSetImages = mapper.getMaxSetImages();
-            for (int index = 0; index < maxSetImages; index++) {
-                childrens.add(this.getImageView(index, PLACE_HOLDER_ICON.get()));
+            final int sizeSubset = mapper.getSize();
+            for (int index = 0; index < sizeSubset; index++) {
+                final Emoticon emoticon = mapper.getEmoticons().get(index);
+            	final ImageView imageView = this.getImageView(index, emoticon.getTitle());
+                
+                final Optional<Image> image = EmoticonProvider.getDefault().loadEmoticon(mapper.getEmojiEmoticonLoader(), emoticon);
+                if (image.isPresent()) {
+                    imageView.setImage(image.get());
+                    LoggerFacade.getDefault().debug(this.getClass(), "  Load " + index + ": " + emoticon.getTitle());
+                }
+                else {
+                    imageView.setImage(PLACE_HOLDER_ICON.isPresent() ? PLACE_HOLDER_ICON.get() : null);
+                    LoggerFacade.getDefault().warn(this.getClass(), "  Can't load " + index + ": " + emoticon.getTitle());
+                }
+                
+                childrens.add(imageView);
             }
             
             mapper.setPlaceHolderIsLoaded(true);
-            lStatusInfo.setText("Load place-holders for Tab: " + mapper.getTabName()); // NOI18N
+            lStatusInfo.setText("Load [images] for Tab [" + mapper.getTabName() + "]"); // NOI18N
         }
     }
     
     public void onActionSelectNewTab(String tabName) {
         LoggerFacade.getDefault().debug(this.getClass(), "On action select new Tab: " + tabName); // NOI18N
-        
+
         final Optional<Mapper> mapper = this.getMapper(tabName);
-        if (mapper.isPresent()) {
-            if (!mapper.get().isPlaceHoldersLoaded()) {
-                // Load the place-holders
-                this.onActionLoadPlaceHolders(mapper.get());
-            }
-            else {
-                // XXX Load the real-images
-                lStatusInfo.setText("Switch to Tab: " + tabName); // NOI18N
-            }
+        if (
+                mapper.isPresent()
+                && !mapper.get().isPlaceHoldersLoaded()
+        ) {
+            this.onActionLoadPlaceHolders(mapper.get());
         }
     }
     
     private final class Mapper {
         
-        private final int maxSetImages;
+        private final int size;
         
+        private final EmojiEmoticonLoader emojiEmoticonLoader;
         private final FlowPane flowPane;
         private final String tabName;
         
+        private final ObservableList<Emoticon> emoticons = FXCollections.observableArrayList();
+        
         private boolean isPlaceHolderLoaded = false;
         
-        Mapper(final String tabName, final FlowPane flowPane, final int maxSetImages) {
+        Mapper(
+                final String tabName, final FlowPane flowPane,
+                final EmojiEmoticonLoader emojiEmoticonLoader, final ObservableList<Emoticon> emoticons
+        ) {
             this.tabName = tabName;
             this.flowPane = flowPane;
-            this.maxSetImages = maxSetImages;
+            
+            this.emojiEmoticonLoader = emojiEmoticonLoader;
+            this.emojiEmoticonLoader.setDefaultSize(EmoticonSize.SIZE_64x64);
+            
+            this.emoticons.addAll(emoticons);
+            this.size = this.emoticons.size();
+        }
+        
+        ObservableList<Emoticon> getEmoticons() {
+            return emoticons;
+        }
+        
+        EmojiEmoticonLoader getEmojiEmoticonLoader() {
+            return emojiEmoticonLoader;
         }
 
         FlowPane getFlowPane() {
             return flowPane;
         }
         
-        int getMaxSetImages() {
-            return maxSetImages;
+        int getSize() {
+            return size;
         }
 
         String getTabName() {

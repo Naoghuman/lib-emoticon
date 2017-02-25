@@ -38,6 +38,18 @@ import java.util.Objects;
  * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator
  */
 public interface EmoticonValidator {
+    
+    public default void requireNonNull(Emoticon emoticon) throws NullPointerException {
+        Objects.requireNonNull(emoticon, "The Emoticon [emoticon] can't be NULL"); // NOI18N
+    }
+    
+    public default void requireNonNull(EmoticonSize size) throws NullPointerException {
+        Objects.requireNonNull(size, "The EmoticonSize [size] can't be NULL"); // NOI18N
+    }
+    
+    public default void requireNonNull(EmoticonSuffix suffix) throws NullPointerException {
+        Objects.requireNonNull(suffix, "The EmoticonSuffix [suffix] can't be NULL"); // NOI18N
+    }
 
     /**
      * Validates if the parameter <code>value</code> isn't NULL.
@@ -45,14 +57,33 @@ public interface EmoticonValidator {
      * @param value the parameter which should be validated.
      * @throws NullPointerException if (value == NULL).
      */
-    public default void validateIsNotNull(String value) throws NullPointerException {
-        Objects.requireNonNull(value, "The value can't be NULL"); // NOI18N
+    public default void requireNonNull(String value) throws NullPointerException {
+        Objects.requireNonNull(value, "The parameter [value] can't be NULL"); // NOI18N
     }
+    
+    public void validate(double value) throws IllegalArgumentException;
+    
+    public void validate(Emoticon emoticon) throws NullPointerException, IllegalArgumentException;
+
+    /**
+     * This method validates if the parameter <code>value</code> valid against
+     * still to be defined rules.
+     * 
+     * TODO hit default-validator rules
+     *
+     * @param size the parameter which should be validated.
+     * @throws IllegalArgumentException if the validation fails.
+     */
+    public void validate(EmoticonSize size) throws NullPointerException, IllegalArgumentException;
+    
+    public void validate(EmoticonSuffix suffix) throws NullPointerException, IllegalArgumentException;
 
     /**
      * This method validates if the parameter <code>value</code> isn't NULL or
      * EMPTY.
-     *
+     * 
+     *TODO hit default-validator rules
+     * 
      * @param value the parameter which should be validated.
      * @throws NullPointerException if (value == NULL).
      * @throws IllegalArgumentException if the validation fails.
