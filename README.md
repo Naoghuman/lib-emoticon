@@ -51,9 +51,10 @@ _Image:_ Demo application v0.1.0-SNAPSHOT
 
 <br />
 Momentary following features are shown in the demo application:
-* How to load all images from the [EmojiEmoticonSet] (see [Emoji cheat sheet] - big 
-  thanks for the great work :bowtie: ).
 * How to load with an [EmoticonLoader] different sublists from an [EmoticonSet].
+* How to load all images from the [EmojiEmoticonSet].
+    * See [Emoji cheat sheet] for the original source - big thanks for the great 
+      work :bowtie: ).
 * How to show a `Can't load image` [Image] if the emoticon image can't loaded.
 
 <br />
