@@ -19,54 +19,90 @@ package com.github.naoghuman.lib.emoticon.core;
 import java.util.Optional;
 
 /**
- * An {@link com.github.naoghuman.lib.emoticon.core.Emoticon} represent an <code>Emoticon</code>.
- * <p />
- * A concrete default implementation from this <code>Interface</code> can be access over the method
- * {@link com.github.naoghuman.lib.emoticon.core.EmoticonProvider#getDefaultEmoticon(String, String)}
- * in the class {@link com.github.naoghuman.lib.emoticon.core.EmoticonProvider}.
- *
+ * An {@link com.github.naoghuman.lib.emoticon.core.Emoticon} represent the emotional 
+ * state from the user in the form from an {@link javafx.scene.image.Image}.
+ * <br><br>
+ * There are two ways to get a concrete implementation from this <code>Interface</code>.
+ * A) Use the different <code>getDefaultEmoticon(...)</code> methods in 
+ * {@link com.github.naoghuman.lib.emoticon.core.EmoticonProvider} or b) for 
+ * more flexiblity in the creation use the {@link com.github.naoghuman.lib.emoticon.core.EmoticonBuilder}.
+ * 
  * @author Naoghuman
+ * @see com.github.naoghuman.lib.emoticon.core.EmoticonBuilder
  * @see com.github.naoghuman.lib.emoticon.core.EmoticonProvider
- * @see com.github.naoghuman.lib.emoticon.core.EmoticonProvider#getDefaultEmoticon(String, String)
  * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticon
  * @see javafx.scene.image.Image
  */
 public interface Emoticon {
     
+    /**
+     * The (optional) category from this <code>Emoticon</code>.
+     * <br>
+     * If this parameter isn't defined then <code>Optional.empty()</code> will 
+     * be returned.
+     * 
+     * @return the category from this <code>Emoticon</code> or Optional.empty().
+     * @see java.util.Optional
+     */
     public Optional<String> getCategory();
 
     /**
-     * The image name from this <code>Emoticon</code>.
-     * <p />
-     * This parameter can't be NULL or EMPTY.
-     *TODO
-     * @return the image name from this <code>Emoticon</code>.
+     * The (optional) image name from this <code>Emoticon</code>.
+     * <br>
+     * If this parameter isn't defined then the parameter <code>title</code> will 
+     * be used for the loading from the {@link javafx.scene.image.Image}.
+     *
+     * @return the image name from this <code>Emoticon</code> or Optional.empty().
+     * @see java.util.Optional
+     * @see javafx.scene.image.Image
      */
     public Optional<String> getName();
 
     /**
-     * The prefix from this <code>Emoticon</code>.
-     * <p />
-     * This parameter can't be NULL or EMPTY.
-     * TODO
-     * @return the prefix from this <code>Emoticon</code>.
+     * The (optional) prefix from this <code>Emoticon</code>.
+     * <br>
+     * If this parameter isn't defined then <code>Optional.empty()</code> will 
+     * be returned. If so then the default prefix defined in 
+     * {@link com.github.naoghuman.lib.emoticon.core.EmoticonLoader} will be 
+     * used for the image loading.
+     * 
+     * @return the prefix from this <code>Emoticon</code> or Optional.empty().
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonLoader
+     * @see java.util.Optional
      */
     public Optional<String> getPrefix();
     
+    /**
+     * The (optional) size from this <code>Emoticon</code>.
+     * <br>
+     * If this parameter isn't defined then <code>Optional.empty()</code> will 
+     * be returned. If so then the default size defined in 
+     * {@link com.github.naoghuman.lib.emoticon.core.EmoticonLoader} will be 
+     * used for the image loading.
+     * 
+     * @return the size from this <code>Emoticon</code> or Optional.empty().
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonLoader
+     * @see java.util.Optional
+     */
     public Optional<EmoticonSize> getSize();
 
     /**
-     * The prefix from this <code>Emoticon</code>.
-     * <p />
-     * This parameter can't be NULL or EMPTY.
-     * TODO
-     * @return the prefix from this <code>Emoticon</code>.
+     * The (optional) suffix from this <code>Emoticon</code>.
+     * <br>
+     * If this parameter isn't defined then <code>Optional.empty()</code> will 
+     * be returned. If so then the default suffix defined in 
+     * {@link com.github.naoghuman.lib.emoticon.core.EmoticonLoader} will be 
+     * used for the image loading.
+     * 
+     * @return the suffix from this <code>Emoticon</code> or Optional.empty().
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonLoader
+     * @see java.util.Optional
      */
     public Optional<EmoticonSuffix> getSuffix();
 
     /**
      * The title from this <code>Emoticon</code>.
-     * <p />
+     * <br>
      * This parameter can't be NULL or EMPTY.
      *
      * @return the title from this <code>Emoticon</code>.
