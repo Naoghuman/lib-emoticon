@@ -11,7 +11,7 @@
     <inceptionYear>2016</inceptionYear>
     <url>https://github.com/Naoghuman/lib-emoticon.git</url>
     
-    <description>TODO</description>
+    <description>`Lib-Emoticon` is a multi [Maven] project written in [JavaFX] and [NetBeans IDE] and provides the functionalities to use and handle easily [Emoticon]s in your JavaFX application.</description>
     
     <developers>
         <developer>
