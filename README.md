@@ -54,7 +54,7 @@ Momentary following features are shown in the demo application:
 * How to load with an [EmoticonLoader] different sublists from an [EmoticonSet].
 * How to load all images from the [EmojiEmoticonSet].
     * See [Emoji cheat sheet] for the original source - big thanks for the great 
-      work :bowtie: ).
+      work :bowtie: .
 * How to show a `Can't load image` [Image] if the emoticon image can't loaded.
 
 <br />
@@ -75,7 +75,7 @@ plus a concrete implementation from an [EmoticonLoader] which loads your own [Em
 images. How that work will be explained in the sub-project [Lib-Emoticon-Demo](#LiEmDe).
 
 Natural you can use additional libraries which contains predefined `Emoticon Sets`. 
-Currently supported is [Emoji] with the libraries [Lib-Emoticon-Emoji](#LiEmEm) 
+Currently supported is [Emoji cheat sheet] with the libraries [Lib-Emoticon-Emoji](#LiEmEm) 
 and [Lib-Emoticon-Emoji-Images](#LiEmEmIm).
 
 
@@ -83,31 +83,31 @@ and [Lib-Emoticon-Emoji-Images](#LiEmEmIm).
 ### Lib-Emoticon-Core<a name="LiEmCo" />
 
 The library `Lib-Emoticon-Core` provides the API to load an [Emoticon] as 
-an [Image] with a concrete implementation from a [EmoticonLoader].
+an [Image] with a concrete implementation from an [EmoticonLoader].
 
-TODO hint additional informatin in sub-project
-TODO link to sub-library
+<br />
+For more informations and examples plz see the [ReadMe from Lib-Emoticon-Core].
 
 
 <br />
 ### Lib-Emoticon-Emoji<a name="LiEmEm" />
 
-With the library `Lib-Emoticon-TransparentTextures` the developer have access to the 
-tileset `Emoji` from the internet page https://www.transparenttextures.com/ TODO
-through the enum `TransparentTexturesTile`. Momentary that are `396` [Tile]s.
+With the library `Lib-Emoticon-Emoji` the developer have access to the 
+emoticonset [Emoji cheat sheet] through the class [EmojiEmoticonSet]. Momentary 
+that are `882` [Emoticon]s.
 
-TODO hint additional informatin in sub-project
-TODO link to sub-library
+<br />
+For more informations and examples plz see the [ReadMe from Lib-Emoticon-Emoji].
 
 
 <br />
 ### Lib-Emoticon-Emoji-Images<a name="LiEmEmIm" />
 
 The library `Lib-Emoticon-Emoji-Images` contains all images from the 
-tileset `Emoji`.
+emoticonset [Emoji cheat sheet]. Currentyl that are `882` images.
 
-TODO hint additional informatin in sub-project
-TODO link to sub-library
+<br />
+For more informations and examples plz see the [ReadMe from Lib-Emoticon-Emoji-Images].
 
 
 
@@ -213,9 +213,13 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Emoticon]:https://en.wikipedia.org/wiki/List_of_emoticons
 [EmoticonLoader]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Core/src/main/java/com/github/naoghuman/lib/emoticon/core/EmoticonLoader.java
 [EmoticonSet]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Core/src/main/java/com/github/naoghuman/lib/emoticon/core/EmoticonSet.java
+[General Public License 3.0]:http://www.gnu.org/licenses/gpl-3.0.en.html
 [Image]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
 [Lib-Emoticon-Demo]:https://github.com/Naoghuman/lib-emoticon/tree/master/Lib-Emoticon-Demo
 [Maven]:http://maven.apache.org/
 [NetBeans IDE]:https://netbeans.org/
+[ReadMe from Lib-Emoticon-Core]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Core/README.md
 [ReadMe from Lib-Emoticon-Demo]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Demo/README.md
+[ReadMe from Lib-Emoticon-Emoji]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Emoji/README.md
+[ReadMe from Lib-Emoticon-Emoji-Images]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Emoji-Images/README.md
