@@ -42,6 +42,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -60,6 +61,8 @@ public class ApplicationPresenter implements Initializable, EmojiEmoticonCategor
     @FXML private FlowPane fpSymbolsItems;
     @FXML private Label lStatusInfo;
     @FXML private TabPane tpEmojiTabs;
+    @FXML private VBox vbAbout;
+    @FXML private VBox vbDetails;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -3,91 +3,110 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="VBox" prefHeight="400.0" prefWidth="600.0" spacing="7.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.emoticon.demo.application.ApplicationPresenter">
+<VBox id="VBox" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: AQUAMARINE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.lib.emoticon.demo.application.ApplicationPresenter">
     <children>
-        <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-            <tabs>
-                <Tab closable="false" text="Emoji">
-                    <content>
-                        <TabPane fx:id="tpEmojiTabs" tabClosingPolicy="UNAVAILABLE">
-                            <tabs>
-                                <Tab closable="false" text="Nature">
-                           <content>
-                              <ScrollPane fitToHeight="true" fitToWidth="true">
+      <SplitPane dividerPositions="0.25" VBox.vgrow="ALWAYS">
+         <items>
+            <TabPane tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab closable="false" text="Details">
+                     <content>
+                        <VBox />
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="About">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+              <TabPane tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                      <Tab closable="false" text="Emoji">
+                          <content>
+                              <TabPane fx:id="tpEmojiTabs" tabClosingPolicy="UNAVAILABLE">
+                                  <tabs>
+                                      <Tab closable="false" text="Nature">
                                  <content>
-                                              <FlowPane fx:id="fpNatureItems" hgap="7.0" vgap="7.0">
-                                                  <padding>
-                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                                  </padding>
-                                              </FlowPane>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                                    <FlowPane fx:id="fpNatureItems" hgap="7.0" vgap="7.0">
+                                                        <padding>
+                                                            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                        </padding>
+                                                    </FlowPane>
+                                       </content>
+                                    </ScrollPane>
                                  </content>
-                              </ScrollPane>
-                           </content>
-                                </Tab>
-                                <Tab closable="false" text="Objects">
-                           <content>
-                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                      </Tab>
+                                      <Tab closable="false" text="Objects">
                                  <content>
-                                              <FlowPane fx:id="fpObjectsItems" hgap="7.0" vgap="7.0">
-                                                  <padding>
-                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                                  </padding>
-                                              </FlowPane>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                                    <FlowPane fx:id="fpObjectsItems" hgap="7.0" vgap="7.0">
+                                                        <padding>
+                                                            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                        </padding>
+                                                    </FlowPane>
+                                       </content>
+                                    </ScrollPane>
                                  </content>
-                              </ScrollPane>
-                           </content>
-                                </Tab>
-                                <Tab closable="false" text="People">
-                           <content>
-                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                      </Tab>
+                                      <Tab closable="false" text="People">
                                  <content>
-                                              <FlowPane fx:id="fpPeopleItems" hgap="7.0" vgap="7.0">
-                                                  <padding>
-                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                                  </padding>
-                                              </FlowPane>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                                    <FlowPane fx:id="fpPeopleItems" hgap="7.0" vgap="7.0">
+                                                        <padding>
+                                                            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                        </padding>
+                                                    </FlowPane>
+                                       </content>
+                                    </ScrollPane>
                                  </content>
-                              </ScrollPane>
-                           </content>
-                                </Tab>
-                                <Tab closable="false" text="Places">
-                           <content>
-                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                      </Tab>
+                                      <Tab closable="false" text="Places">
                                  <content>
-                                              <FlowPane fx:id="fpPlacesItems" hgap="7.0" vgap="7.0">
-                                                  <padding>
-                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                                  </padding>
-                                              </FlowPane>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                                    <FlowPane fx:id="fpPlacesItems" hgap="7.0" vgap="7.0">
+                                                        <padding>
+                                                            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                        </padding>
+                                                    </FlowPane>
+                                       </content>
+                                    </ScrollPane>
                                  </content>
-                              </ScrollPane>
-                           </content>
-                                </Tab>
-                                <Tab closable="false" text="Symbols">
-                           <content>
-                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                      </Tab>
+                                      <Tab closable="false" text="Symbols">
                                  <content>
-                                              <FlowPane fx:id="fpSymbolsItems" hgap="7.0" vgap="7.0">
-                                                  <padding>
-                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                                  </padding>
-                                              </FlowPane>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                                    <FlowPane fx:id="fpSymbolsItems" hgap="7.0" vgap="7.0">
+                                                        <padding>
+                                                            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                        </padding>
+                                                    </FlowPane>
+                                       </content>
+                                    </ScrollPane>
                                  </content>
-                              </ScrollPane>
-                           </content>
-                                </Tab>
-                            </tabs>
-                        </TabPane>
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
+                                      </Tab>
+                                  </tabs>
+                              </TabPane>
+                          </content>
+                      </Tab>
+                  </tabs>
+              </TabPane>
+         </items>
+      </SplitPane>
         <ToolBar>
             <items>
                 <Label fx:id="lStatusInfo" text="&lt;status-info&gt;" />
