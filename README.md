@@ -7,20 +7,15 @@ Lib-Emoticon
 Intention
 ---
 
-TODO
-Lib-Emoticon is a multi Maven project written in JavaFX and NetBeans IDE 8 and provides the 
-functionalities to use and handle easily Emoticons in your JavaFX application. 
+`Lib-Emoticon` is a multi [Maven] project written in [JavaFX] and [NetBeans IDE] 
+and provides the functionalities to use and handle easily [Emoticon]s in your 
+JavaFX application. 
 
-The current `version` is `0.1.0` from MM.dd.2017.
+The current `version` is `0.1.0-SNAPSHOT` from MM.dd.2017 (MM.dd.yyyy).
 
 <br />
-_Image:_ TODO image name
-
-> __Hint__  
-> a
-> b
-
-![image-name.png][image-name]
+_Image:_ Demo v0.1.0-SNAPSHOT
+![demo-v0.1.0-SNAPSHOT.png][demo-v0.1.0-SNAPSHOT]
 
 
 
@@ -51,14 +46,15 @@ The application [Lib-Emoticon-Demo] shows a `demonstration` how to use and
 handle the features from the libraries in the project `Lib-Emoticon`. 
 
 <br />
-_Image:_ Default demo application
-![demo-application-default.png][demo-application-default]
+_Image:_ Demo application v0.1.0-SNAPSHOT
+![demo-application-v0.1.0-SNAPSHOT.png][demo-application-v0.1.0-SNAPSHOT]
 
 <br />
-Momentary the developer have following features during the demo application:
-* TODO add feature description
-* TODO add feature description
-* TODO add feature description
+Momentary following features are shown in the demo application:
+* How to load all images from the [EmojiEmoticonSet] (see [Emoji cheat sheet] - big 
+  thanks for the great work :bowtie: ).
+* How to load with an [EmoticonLoader] different sublists from an [EmoticonSet].
+* How to show a `Can't load image` [Image] if the emoticon image can't loaded.
 
 <br />
 For more informations and examples plz see the [ReadMe from Lib-Emoticon-Demo].
@@ -204,9 +200,21 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 
 [//]: # (Images)
-[demo-application-default]:https://cloud.githubusercontent.com/assets/8161815/17342760/efe5803c-58fa-11e6-905b-f8a0d8ff856d.png
+[demo-application-v0.1.0-SNAPSHOT]:https://cloud.githubusercontent.com/assets/8161815/23338535/c417558c-fc0d-11e6-9338-8622dfcc74d7.png
+[demo-v0.1.0-SNAPSHOT]:https://cloud.githubusercontent.com/assets/8161815/23338494/fcc31886-fc0c-11e6-9980-1f57722c4417.png
 
 
 
 [//]: # (Links)
 [Background]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/Background.html
+[Emoji cheat sheet]:http://www.webpagefx.com/tools/emoji-cheat-sheet/
+[EmojiEmoticonSet]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Emoji/src/main/java/com/github/naoghuman/lib/emoticon/emoji/EmojiEmoticonSet.java
+[Emoticon]:https://en.wikipedia.org/wiki/List_of_emoticons
+[EmoticonLoader]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Core/src/main/java/com/github/naoghuman/lib/emoticon/core/EmoticonLoader.java
+[EmoticonSet]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Core/src/main/java/com/github/naoghuman/lib/emoticon/core/EmoticonSet.java
+[Image]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html
+[JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
+[Lib-Emoticon-Demo]:https://github.com/Naoghuman/lib-emoticon/tree/master/Lib-Emoticon-Demo
+[Maven]:http://maven.apache.org/
+[NetBeans IDE]:https://netbeans.org/
+[ReadMe from Lib-Emoticon-Demo]:https://github.com/Naoghuman/lib-emoticon/blob/master/Lib-Emoticon-Demo/README.md
