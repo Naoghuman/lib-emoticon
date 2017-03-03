@@ -29,6 +29,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -98,11 +100,11 @@ public class ApplicationPresenter implements Initializable, EmojiEmoticonCategor
     private void initializeMappers() {
         LoggerFacade.getDefault().info(this.getClass(), "Initialize Mappers"); // NOI18N
         
-        MAPPERS.add(new Mapper(NATURE,  fpNatureItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(NATURE))));
-        MAPPERS.add(new Mapper(OBJECTS, fpObjectsItems, new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(OBJECTS))));
-        MAPPERS.add(new Mapper(PEOPLE,  fpPeopleItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(PEOPLE))));
-        MAPPERS.add(new Mapper(PLACES,  fpPlacesItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(PLACES))));
-        MAPPERS.add(new Mapper(SYMBOLS, fpSymbolsItems, new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(Optional.of(SYMBOLS))));
+        MAPPERS.add(new Mapper(NATURE,  fpNatureItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(NATURE)));
+        MAPPERS.add(new Mapper(OBJECTS, fpObjectsItems, new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(OBJECTS)));
+        MAPPERS.add(new Mapper(PEOPLE,  fpPeopleItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(PEOPLE)));
+        MAPPERS.add(new Mapper(PLACES,  fpPlacesItems,  new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(PLACES)));
+        MAPPERS.add(new Mapper(SYMBOLS, fpSymbolsItems, new EmojiEmoticonLoader(), EmojiEmoticonSet.getDefault().getEmoticons(SYMBOLS)));
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -193,7 +195,7 @@ public class ApplicationPresenter implements Initializable, EmojiEmoticonCategor
         
         Mapper(
                 final String tabName, final FlowPane flowPane,
-                final EmojiEmoticonLoader emojiEmoticonLoader, final ObservableList<Emoticon> emoticons
+                final EmojiEmoticonLoader emojiEmoticonLoader, final Stream<Emoticon> emoticons
         ) {
             this.tabName = tabName;
             this.flowPane = flowPane;
@@ -201,7 +203,7 @@ public class ApplicationPresenter implements Initializable, EmojiEmoticonCategor
             this.emojiEmoticonLoader = emojiEmoticonLoader;
             this.emojiEmoticonLoader.setDefaultSize(EmoticonSize.SIZE_64x64);
             
-            this.emoticons.addAll(emoticons);
+            this.emoticons.addAll(emoticons.collect(Collectors.toList()));
             this.size = this.emoticons.size();
         }
         

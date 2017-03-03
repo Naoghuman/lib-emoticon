@@ -4425,7 +4425,7 @@ public final class EmojiEmoticonSet extends EmoticonSet implements EmojiEmoticon
     public static final Emoticon SY_SHIPIT = EmoticonBuilder.create().title("shipit").category(SYMBOLS).build(); // NOI18N
     // END SYMBOLS ############################################################
 
-    private static final Optional<EmojiEmoticonSet> instance = Optional.of(new EmojiEmoticonSet());
+    private static final Optional<EmojiEmoticonSet> INSTANCE = Optional.of(new EmojiEmoticonSet());
 
     /**
      * Returns a singleton instance from the class
@@ -4435,7 +4435,7 @@ public final class EmojiEmoticonSet extends EmoticonSet implements EmojiEmoticon
      * <code>EmojiEmoticonSet</code>.
      */
     public static final EmojiEmoticonSet getDefault() {
-        return instance.get();
+        return INSTANCE.get();
     }
 
     private EmojiEmoticonSet() {

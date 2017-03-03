@@ -16,47 +16,27 @@
  */
 package com.github.naoghuman.lib.emoticon.core;
 
+import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * TileSet - enthaelt eine List<Tile>
- * - enthaelt eine List<TileLoader>
- *
- * - TileLoader ermoeglicht das laden von Tile - fuer das laden eines Tile ueber
- * einen TileLoader ist es notwendig, dass der TileLoader das Tile
- * supported(prefix)
- * - der TileToader sollte ABER auch verantwortlich sein fuer das Tile
- * - TODO d.h. die Bilder der Tile welche ueber den TileLoader geladen
- * werden sollen fuer den TileLoader verfuegbar sein
- *
- * - wie wird der prefix gemanagt?
- * - Tile(-Bilder) haben a) einen oder mehrere
- * prefixe b) die dazugehoerenden bildernamen
- * - TileLoader verifizieren (validate {NEU TileValidator}) das sie verantwortlich 
- * sind, dass sie das Tile laden koennen 
- * a) prefix ist okay 
- * b) TileLoader kann definierte Bilder erreichen 
- * c) ist verantwortlich fuer das tile (tile ist registiert bei dem
- * lader, bedeutet das bild ist fuer den TileLoader erreichbar) 
  * 
- * - Move XyEmoticonLoader 
- *    - from lib-emoticon-emoji-images
- *    - to lib-emoticon-emoji
- *
- * lib-emoticon-emoji-images have only images lib-emoticon-emoji have
- * XyEmoticonLoader and XyEmoticonSet
- *
  * @author Naoghuman
  */
 public abstract class EmoticonSet {
-    
+
     /**
-     * 
+     * Allowed to compare two {@link com.github.naoghuman.lib.emoticon.core.Emoticon}s 
+     * with the distinction criteria {@link com.github.naoghuman.lib.emoticon.core.Emoticon#getTitle()}.
+     *
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon#getTitle()
      */
     public static final Comparator<Emoticon> EMOTICON_TITLE_COMPARATOR = Comparator.comparing(Emoticon::getTitle);
 
@@ -64,7 +44,7 @@ public abstract class EmoticonSet {
     private final ObservableList<EmoticonLoader> emoticonLoaders = FXCollections.observableArrayList();
 
     /**
-     * 
+     *
      */
     protected EmoticonSet() {
         this.initialize();
@@ -76,87 +56,177 @@ public abstract class EmoticonSet {
     }
 
     /**
-     * 
-     * @param emoticon 
+     * Adds the {@link com.github.naoghuman.lib.emoticon.core.Emoticon} to the
+     * list of associated <code>Emoticon</code>s from a <code>subclass</code> of
+     * this abstract class. 
+     * <br>
+     * Use this methods to define all <code>Emoticon</code>s from the given concrete 
+     * implementation from this abstract class in the to overriden method
+     * {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#configureEmoticons()}.
+     *
+     * @param emoticon the <code>Emoticon</code> which should be associated with
+     * this <code>EmoticonSet</code>.
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#configureEmoticons()
      */
-    public void addEmoticon(Emoticon emoticon) {
+    protected void addEmoticon(Emoticon emoticon) {
         emoticons.add(emoticon);
     }
 
     /**
-     * 
-     * @param emoticonLoader 
+     * Adds the {@link com.github.naoghuman.lib.emoticon.core.EmoticonLoader} to
+     * the list of associated <code>EmoticonLoader</code>s from a
+     * <code>subclass</code> of this abstract class.
+     * <br>
+     * Use this methods to define all <code>EmoticonLoader</code>s from the given 
+     * concrete implementation from this abstract class in the to overriden method
+     * {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#configureEmoticonLoaders()}.
+     *
+     * @param emoticonLoader the <code>EmoticonLoader</code> which should be
+     * associated with this <code>EmoticonSet</code>.
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonLoader
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#configureEmoticonLoaders()
      */
-    public void addEmoticonLoader(EmoticonLoader emoticonLoader) {
+    protected void addEmoticonLoader(EmoticonLoader emoticonLoader) {
         emoticonLoaders.add(emoticonLoader);
     }
 
     /**
-     * Add all TileLoaders which are responsible for loading the Tiles in this
-     * TileSet to the collection.
+     * Use this method to add all {@link com.github.naoghuman.lib.emoticon.core.EmoticonLoader}s 
+     * which are responsible for loading the associated {@link com.github.naoghuman.lib.emoticon.core.Emoticon}s 
+     * in a concrete implementation from this abstract class.
+     * <br>
+     * For more information how to add an <code>EmoticonLoader</code>s to this 
+     * class see also {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticonLoader(com.github.naoghuman.lib.emoticon.core.EmoticonLoader) }.
+     *
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonLoader
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticonLoader(com.github.naoghuman.lib.emoticon.core.EmoticonLoader) 
      */
     protected abstract void configureEmoticonLoaders();
 
     /**
-     * Add all Tiles from this TileSet to the collection.
+     * Use this method to add all associated {@link com.github.naoghuman.lib.emoticon.core.Emoticon}s 
+     * in a concrete implementation from this abstract class.
+     * <br>
+     * For more information how to add an <code>Emoticon</code>s to this 
+     * class see also {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticon(com.github.naoghuman.lib.emoticon.core.Emoticon)}.
+     *
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticon(com.github.naoghuman.lib.emoticon.core.Emoticon) 
      */
     protected abstract void configureEmoticons();
 
     /**
-     * 
-     * @param title
-     * @return 
+     * Returns the corresponding {@link com.github.naoghuman.lib.emoticon.core.Emoticon} 
+     * wrapped in an {@link java.util.Optional} or when not found {@link java.util.Optional#empty()}.
+     * <br>
+     * The parameter <code>title</code> will be validate against the minimal rules 
+     * defined in {@link com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator}. 
+     * Plz see {@link com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator#validate(java.lang.String)}
+     * for more informations.
+     *
+     * @param title the title from the searched <code>Emoticon</code>.
+     * @return The founded <code>Emoticon</code> wrapped in an
+     * <code>Optional</code> or <code>Optional.empty()</code>.
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator
+     * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator#validate(java.lang.String)
+     * @see java.util.Optional
+     * @see java.util.Optional#empty()
      */
-    protected Optional<Emoticon> getEmoticon(String title) {
-        Emoticon foundedEmoticon = null;
-        for (Emoticon emoticon : emoticons) {// TODO convert to lambda
-            if (emoticon.getTitle().equals(title)) {
-                foundedEmoticon = emoticon;
-                break;
-            }
-        }
+    protected Optional<Emoticon> getEmoticon(final String title) {
+        DefaultEmoticonValidator.getDefault().validate(title);
+        
+        final Optional<Emoticon> foundedEmoticon = emoticons.stream()
+                .filter(emoticon -> emoticon.getTitle().equals(title))
+                .findFirst();
 
-        return Optional.ofNullable(foundedEmoticon);
+        return foundedEmoticon;
     }
 
     /**
-     * 
-     * @param emoticon
-     * @return 
+     * Returns the first corresponding {@link com.github.naoghuman.lib.emoticon.core.EmoticonLoader} 
+     * which is associated the given {@link com.github.naoghuman.lib.emoticon.core.Emoticon}.
+     * <br>
+     * The parameter <code>emoticon</code> will be validate against the minimal rules 
+     * defined in {@link com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator}. 
+     * Plz see {@link com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator#validate(com.github.naoghuman.lib.emoticon.core.Emoticon)}
+     * for more informations.
+     *
+     * @param emoticon which first corresponding <code>EmoticonLoader</code> should be returned.
+     * @return the first corresponding <code>EmoticonLoader</code> to the given <code>Emoticon</code>.
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonLoader
+     * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator
+     * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator#validate(com.github.naoghuman.lib.emoticon.core.Emoticon)
+     * @see java.util.Optional
+     * @see java.util.Optional#empty()
      */
     public Optional<EmoticonLoader> getEmoticonLoader(Emoticon emoticon) {
-        EmoticonLoader foundedEmoticonLoader = null;
-        for (EmoticonLoader emoticonLoader : emoticonLoaders) {// TODO convert to lambda
-            if (emoticonLoader.isSupported(emoticon.getPrefix())) {
-                foundedEmoticonLoader = emoticonLoader;
-                break;
-            }
-        }
+        DefaultEmoticonValidator.getDefault().validate(emoticon);
+        
+        final Optional<EmoticonLoader> foundedEmoticonLoader = emoticonLoaders.stream()
+                .filter(emoticonLoader -> emoticonLoader.isSupported(emoticon.getPrefix()))
+                .findFirst();
 
-        return Optional.ofNullable(foundedEmoticonLoader);
+        return foundedEmoticonLoader;
     }
 
     /**
-     * 
-     * @return 
+     * Returns all associated {@link com.github.naoghuman.lib.emoticon.core.Emoticon} s
+     * defined in a concrete implementation from this abstract class.
+     * <br><br>
+     * Hint:<br>
+     * To add <code>Emoticon</code>s to a <code>EmoticonSet</code> plz see the method
+     * {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticon(com.github.naoghuman.lib.emoticon.core.Emoticon)}
+     * or {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#configureEmoticons()}.
+     *
+     * @return all associated <code>Emoticon</code>s from a concrete implementation of this abstract class.
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticon(com.github.naoghuman.lib.emoticon.core.Emoticon)
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#configureEmoticons() 
      */
-    public ObservableList<Emoticon> getEmoticons() {
-        return emoticons;
+    public Stream<Emoticon> getEmoticons() {
+        return emoticons.stream();
     }
-    
-    public ObservableList<Emoticon> getEmoticons(Optional<String> category) {
-        if (!category.isPresent()) {
-            return this.getEmoticons();
-        }
-        
+
+    /**
+     * Returns all associated {@link com.github.naoghuman.lib.emoticon.core.Emoticon}s 
+     * defined in a concrete implementation from this abstract class which have the 
+     * same <code>category</code> like the given parameter.
+     * <br>
+     * The parameter <code>category</code> will be validate against the minimal rules 
+     * defined in {@link com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator}. 
+     * Plz see {@link com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator#validate(java.lang.String)}
+     * for more informations.
+     * <br><br>
+     * Hint:<br>
+     * To add <code>Emoticon</code>s to a <code>EmoticonSet</code> plz see the method
+     * {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticon(com.github.naoghuman.lib.emoticon.core.Emoticon)}
+     * or {@link com.github.naoghuman.lib.emoticon.core.EmoticonSet#configureEmoticons()}.
+     *
+     * @param category the filter parameter.
+     * @return all associated <code>Emoticon</code>s in a concrete implementation from this abstract <code>EmoticonSet</code>.
+     * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#addEmoticon(com.github.naoghuman.lib.emoticon.core.Emoticon)
+     * @see com.github.naoghuman.lib.emoticon.core.EmoticonSet#getEmoticons()
+     * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator
+     * @see com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator#validate(java.lang.String)
+     * @see java.util.Optional
+     */
+    public Stream<Emoticon> getEmoticons(String category) {
+        DefaultEmoticonValidator.getDefault().validate(category);
+
         final ObservableList<Emoticon> categoryEmoticons = FXCollections.observableArrayList();
         categoryEmoticons.addAll(emoticons.stream()
                 .filter(emoticon -> (
-                        emoticon.getCategory().isPresent() && emoticon.getCategory().get().equals(category.get())
-                ))
+                        emoticon.getCategory().isPresent()
+                        && emoticon.getCategory().get().equals(category))
+                )
                 .collect(Collectors.toList()));
-        
-        return categoryEmoticons;
+
+        return categoryEmoticons.stream();
     }
 
 }
