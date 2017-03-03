@@ -19,55 +19,54 @@ package com.github.naoghuman.lib.emoticon.core;
 import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator;
 
 /**
+ * The class <code>EmoticonSuffix</code> defines different image suffixes which 
+ * will be used during the image loading.
+ * <br>
+ * The suffixes from here can be used a) to define the default image suffix for 
+ * an {@link com.github.naoghuman.lib.emoticon.core.EmoticonLoader} and / or b) to 
+ * define a specific image suffix for an {@link com.github.naoghuman.lib.emoticon.core.Emoticon}.
  *
  * @author Naoghuman
+ * @see com.github.naoghuman.lib.emoticon.core.Emoticon
+ * @see com.github.naoghuman.lib.emoticon.core.EmoticonLoader
  */
-public enum EmoticonSuffix {
+public final class EmoticonSuffix {
 
     /**
-     *
+     * Defines an <code>EmoticonSuffix</code> for the image suffix <code>.gif</code>.
      */
-    GIF(".gif"), // NOI18N
+    public static final EmoticonSuffix GIF = new EmoticonSuffix(".gif"); // NOI18N
 
     /**
-     *
+     * Defines an <code>EmoticonSuffix</code> for the image suffix <code>.jpeg</code>.
      */
-    JPEG(".jpeg"), // NOI18N
+    public static final EmoticonSuffix JPEG = new EmoticonSuffix(".jpeg"); // NOI18N
 
     /**
-     *
+     * Defines an <code>EmoticonSuffix</code> for the image suffix <code>.jpg</code>.
      */
-    JPG(".jpg"), // NOI18N
+    public static final EmoticonSuffix JPG = new EmoticonSuffix(".jpg"); // NOI18N
 
     /**
-     *
+     * Defines an <code>EmoticonSuffix</code> for the image suffix <code>.png</code>.
      */
-    PNG(".png"), // NOI18N
-    
-    OWN(".png"); // NOI18N
+    public static final EmoticonSuffix PNG = new EmoticonSuffix(".png"); // NOI18N
 
-    private String suffix = null;
+    private final String suffix;
 
-    EmoticonSuffix(final String suffix) {
-        this.suffix = suffix;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getSuffix() {
-        return suffix;
-    }
-    
-    public void setOwnSuffix(final String suffix) {
-        if (!this.equals(OWN)) {
-            throw new UnsupportedOperationException("Set [own] suffix is only allowed in parameter [OWN]"); // NOI18N
-        }
-        
+    private EmoticonSuffix(final String suffix) {
         DefaultEmoticonValidator.getDefault().validate(suffix);
 
         this.suffix = suffix;
+    }
+
+    /**
+     * Returns the image suffix.
+     *
+     * @return the image suffix.
+     */
+    public final String getSuffix() {
+        return suffix;
     }
 
 }

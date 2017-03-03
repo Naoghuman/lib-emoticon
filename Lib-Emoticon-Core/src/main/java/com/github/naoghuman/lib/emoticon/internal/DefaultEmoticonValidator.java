@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * This class is a default implementation from the <code>Interface</code>
  * {@link com.github.naoghuman.lib.emoticon.core.EmoticonValidator} which can be
  * used to validate that a {@link java.lang.String} isn't NULL or EMPTY.
- * <p />
+ * <br><br>
  * This class can be accessed over the method
  * {@link com.github.naoghuman.lib.emoticon.core.EmoticonProvider#getDefaultEmoticonValidator()}.
  *
@@ -41,16 +41,15 @@ import java.util.logging.Logger;
  */
 public final class DefaultEmoticonValidator implements EmoticonValidator {
 
-    private static final Optional<DefaultEmoticonValidator> instance = Optional.of(new DefaultEmoticonValidator());
+    private static final Optional<DefaultEmoticonValidator> INSTANCE = Optional.of(new DefaultEmoticonValidator());
 
     /**
-     * Returns a singleton instance from the class
-     * <code>DefaultEmojiValidator</code>.
+     * Returns a singleton instance from the class <code>DefaultEmojiValidator</code>.
      *
      * @return a singleton instance from this class.
      */
     public static final DefaultEmoticonValidator getDefault() {
-        return instance.get();
+        return INSTANCE.get();
     }
 
     private DefaultEmoticonValidator() {
@@ -94,19 +93,16 @@ public final class DefaultEmoticonValidator implements EmoticonValidator {
         try {
             this.validate(size.getHeight());
             this.validate(size.getWidth());
-        } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, 
-                    "Either the [width=" + size.getWidth() + "] or [height=" + size.getHeight() + "] isn't valid!", ex); // NOI18N
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException(
+                    "Either the [width=" + size.getWidth() + "] or [height=" 
+                            + size.getHeight() + "] isn't valid!", ex); // NOI18N
         }
     }
 
     @Override
-    public void validate(final EmoticonSuffix suffix) throws NullPointerException, IllegalArgumentException {
+    public void validate(final EmoticonSuffix suffix) throws NullPointerException {
         EmoticonValidator.super.requireNonNull(suffix);
-        
-        if (suffix.equals(EmoticonSuffix.OWN)) {
-            this.validate(suffix.getSuffix());
-        }
     }
 
     @Override

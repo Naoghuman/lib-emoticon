@@ -76,7 +76,7 @@ public interface EmoticonValidator {
      */
     public void validate(EmoticonSize size) throws NullPointerException, IllegalArgumentException;
     
-    public void validate(EmoticonSuffix suffix) throws NullPointerException, IllegalArgumentException;
+    public void validate(EmoticonSuffix suffix) throws NullPointerException;
 
     /**
      * This method validates if the parameter <code>value</code> isn't NULL or
