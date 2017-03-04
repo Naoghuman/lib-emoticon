@@ -17,7 +17,6 @@
 package com.github.naoghuman.lib.emoticon.core;
 
 import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticon;
-import com.github.naoghuman.lib.emoticon.internal.DefaultEmoticonValidator;
 import java.util.Optional;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
@@ -129,55 +128,37 @@ public final class EmoticonBuilder {
 
         @Override
         public PrefixEmoticonBuilder title(final String title) {
-            DefaultEmoticonValidator.getDefault().validate(title);
-
             properties.put(PROP_TITLE, new SimpleStringProperty(title));
-
             return this;
         }
 
         @Override
         public NameEmoticonBuilder prefix(final String prefix) {
-            DefaultEmoticonValidator.getDefault().validate(prefix);
-
             properties.put(PROP_PREFIX, new SimpleObjectProperty<>(Optional.of(prefix)));
-
             return this;
         }
 
         @Override
         public SuffixEmoticonBuilder name(final String name) {
-            DefaultEmoticonValidator.getDefault().validate(name);
-
             properties.put(PROP_NAME, new SimpleObjectProperty<>(Optional.of(name)));
-
             return this;
         }
 
         @Override
         public CategoryEmoticonBuilder suffix(final EmoticonSuffix suffix) {
-            DefaultEmoticonValidator.getDefault().validate(suffix);
-
             properties.put(PROP_SUFFIX, new SimpleObjectProperty<>(Optional.of(suffix)));
-
             return this;
         }
 
         @Override
         public SizeEmoticonBuilder category(final String category) {
-            DefaultEmoticonValidator.getDefault().validate(category);
-
             properties.put(PROP_CATEGORY, new SimpleObjectProperty<>(Optional.of(category)));
-
             return this;
         }
 
         @Override
         public BuildEmoticonBuilder size(final EmoticonSize size) {
-            DefaultEmoticonValidator.getDefault().validate(size);
-
             properties.put(PROP_SIZE, new SimpleObjectProperty<>(Optional.of(size)));
-
             return this;
         }
 
