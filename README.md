@@ -3,23 +3,20 @@ Lib-Emoticon
 
 
 
-<br />
 Intention
 ---
 
 `Lib-Emoticon` is a multi [Maven] project written in [JavaFX] and [NetBeans IDE] 
 and provides the functionalities to use and handle easily [Emoticon]s in your 
-JavaFX application. 
+JavaFX application.
 
-The current `version` is `0.1.0-SNAPSHOT` from MM.dd.2017 (MM.dd.yyyy).
-
-<br />
-_Image:_ Demo v0.1.0-SNAPSHOT
+_Image:_ Demo v0.1.0-SNAPSHOT  
 ![demo-v0.1.0-SNAPSHOT.png][demo-v0.1.0-SNAPSHOT]
 
+The current `version` is `0.1.0-SNAPSHOT` (MM.dd.2017 / MM.dd.yyyy).
 
 
-<br />
+
 Content
 ---
 
@@ -38,18 +35,15 @@ Content
 
 
 
-<br />
 Demo<a name="Demo" />
 ---
 
 The application [Lib-Emoticon-Demo] shows a `demonstration` how to use and 
 handle the features from the libraries in the project `Lib-Emoticon`. 
 
-<br />
-_Image:_ Demo application v0.1.0-SNAPSHOT
+_Image:_ Demo application v0.1.0-SNAPSHOT  
 ![demo-application-v0.1.0-SNAPSHOT.png][demo-application-v0.1.0-SNAPSHOT]
 
-<br />
 Momentary following features are shown in the demo application:
 * How to load with an [EmoticonLoader] different sublists from an [EmoticonSet].
 * How to load all images from the [EmojiEmoticonSet].
@@ -57,12 +51,10 @@ Momentary following features are shown in the demo application:
       work :bowtie: .
 * How to show a `Can't load image` [Image] if the emoticon image can't loaded.
 
-<br />
 For more informations and examples plz see the [ReadMe from Lib-Emoticon-Demo].
 
 
 
-<br />
 Libraries<a name="Libraries" />
 ---
 
@@ -79,63 +71,42 @@ Currently supported is [Emoji cheat sheet] with the libraries [Lib-Emoticon-Emoj
 and [Lib-Emoticon-Emoji-Images](#LiEmEmIm).
 
 
-<br />
 ### Lib-Emoticon-Core<a name="LiEmCo" />
 
 The library `Lib-Emoticon-Core` provides the API to load an [Emoticon] as 
 an [Image] with a concrete implementation from an [EmoticonLoader].
 
-<br />
 For more informations and examples plz see the [ReadMe from Lib-Emoticon-Core].
 
 
-<br />
 ### Lib-Emoticon-Emoji<a name="LiEmEm" />
 
 With the library `Lib-Emoticon-Emoji` the developer have access to the 
 emoticonset [Emoji cheat sheet] through the class [EmojiEmoticonSet]. Momentary 
 that are `882` [Emoticon]s.
 
-<br />
 For more informations and examples plz see the [ReadMe from Lib-Emoticon-Emoji].
 
 
-<br />
 ### Lib-Emoticon-Emoji-Images<a name="LiEmEmIm" />
 
 The library `Lib-Emoticon-Emoji-Images` contains all images from the 
-emoticonset [Emoji cheat sheet]. Currentyl that are `882` images.
+emoticonset [Emoji cheat sheet]. Currently that are `882` images.
 
-<br />
 For more informations and examples plz see the [ReadMe from Lib-Emoticon-Emoji-Images].
 
 
 
-<br />
 Download<a name="Download" />
 ---
 
 There are different `zip` files as download available. Plz choose the right one 
 in dependency from your necessities:
-* Download Lib-Tile-Core-0.1.0.zip
-    * Contains only the library lib-tile-core-0.1.0.jar.
-    * You need to define your own [TileLoader] and your own [Tile]s images in 
-      your application.
-* Download Lib-Tile-Core-And-TransparentTextures-0.1.0.zip
-    * Contains the libraries lib-tile-core-0.1.0.jar, lib-tile-transparenttextures-0.1.0.jar, 
-      lib-tile-transparenttextures-images-0.1.0.jar.
-    * You can use the predefined tileset `Transparent Textures` in your application.
-* Download Lib-Tile-Demo-0.1.0-SNAPSHOT.zip
-    * Contains the library lib-tile-demo-0.1.0-SNAPSHOT.jar as an executable jar 
-      with included libraries lib-tile-core-0.1.0.jar, lib-tile-transparenttextures-0.1.0.jar, 
-      lib-tile-transparenttextures-images-0.1.0.jar.
-    * Use the demo application as a preview how the chosen [Tile]s will be looks 
-      over your chosen background image/-color.
+* TODO 
 
 Access to the downloads are here: [Download Lib-Tile]
 
 
-<br />
 Requirements<a name="Requirements" />
 ---
 
@@ -143,7 +114,6 @@ Requirements<a name="Requirements" />
 
 
 
-<br />
 Installation<a name="Installation" />
 ---
 
@@ -153,7 +123,6 @@ include the jar file&#040;s&#041; into your project. That was it :smile: .
 
 
 
-<br />
 Documentation<a name="Documentation" />
 ---
 
@@ -167,7 +136,6 @@ where `examples` and the `api` are shown and explained.
 
 
 
-<br />
 Contribution<a name="Contribution" />
 ---
 
@@ -176,7 +144,6 @@ Contribution<a name="Contribution" />
 
 
 
-<br />
 License<a name="License" />
 ---
 
@@ -184,7 +151,6 @@ The project `Lib-Emoticon` and all sub-projects are licensed under [General Publ
 
 
 
-<br />
 Autor<a name="Autor" />
 ---
 
@@ -192,7 +158,6 @@ The project `Lib-Emoticon` and all sub-projects are maintained by me, Peter Rogg
 
 
 
-<br />
 Contact<a name="Contact" />
 ---
 
@@ -216,6 +181,8 @@ You can reach me under <peter.rogge@yahoo.de>.
 [General Public License 3.0]:http://www.gnu.org/licenses/gpl-3.0.en.html
 [Image]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
+[JDK 8]:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[JRE 8]:http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
 [Lib-Emoticon-Demo]:https://github.com/Naoghuman/lib-emoticon/tree/master/Lib-Emoticon-Demo
 [Maven]:http://maven.apache.org/
 [NetBeans IDE]:https://netbeans.org/
